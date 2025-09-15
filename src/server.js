@@ -8,6 +8,10 @@ import cookieParser from "cookie-parser";
 import config from "config";
 
 import authRoutes from "./routes/auth.js";
+import profileRoutes from "./routes/profile.js";
+import moviesRoutes from "./routes/movies.js";
+
+import authMiddleware from "./midleware/authMiddleware.js";
 
 dotenv.config();
 
@@ -22,6 +26,8 @@ app.use(morgan("dev"));
 
 // Routes
 app.use("/api/auth", authRoutes);
+app.use("/api/profile", authMiddleware, profileRoutes);
+app.use("/api/movies", authMiddleware, moviesRoutes);
 
 // DB Connection
 const mongoURI = process.env.MONGO_URI || config.get("mongoURI");
