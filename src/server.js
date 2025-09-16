@@ -10,8 +10,10 @@ import config from "config";
 import authRoutes from "./routes/auth.js";
 import profileRoutes from "./routes/profile.js";
 import moviesRoutes from "./routes/movies.js";
+import adminMoviesRoutes from "./routes/admin/movies.js";
 
 import authMiddleware from "./midleware/authMiddleware.js";
+import isAdmin from "./midleware/isAdmin.js";
 
 dotenv.config();
 
@@ -28,6 +30,7 @@ app.use(morgan("dev"));
 app.use("/api/auth", authRoutes);
 app.use("/api/profile", authMiddleware, profileRoutes);
 app.use("/api/movies", authMiddleware, moviesRoutes);
+app.use("/api/admin", authMiddleware, isAdmin, adminMoviesRoutes);
 
 // DB Connection
 const mongoURI = process.env.MONGO_URI || config.get("mongoURI");
