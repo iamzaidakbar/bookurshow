@@ -11,6 +11,7 @@ import authRoutes from "./routes/auth.js";
 import profileRoutes from "./routes/profile.js";
 import moviesRoutes from "./routes/movies.js";
 import adminMoviesRoutes from "./routes/admin/movies.js";
+import adminTheaterRoutes from "./routes/admin/theater.js";
 
 import authMiddleware from "./midleware/authMiddleware.js";
 import isAdmin from "./midleware/isAdmin.js";
@@ -31,6 +32,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/profile", authMiddleware, profileRoutes);
 app.use("/api/movies", authMiddleware, moviesRoutes);
 app.use("/api/admin", authMiddleware, isAdmin, adminMoviesRoutes);
+app.use("/api/admin", authMiddleware, isAdmin, adminTheaterRoutes);
 
 // DB Connection
 const mongoURI = process.env.MONGO_URI || config.get("mongoURI");
